@@ -2,17 +2,36 @@
   <!--
     Everything is wrapped in a label, which acts as a clickable wrapper around a form element.
     In this case, the file input.
-  -->
+  --><div>
   <label class="file-select">
     <!-- We can't use a normal button element here, as it would become the target of the label. -->
     <div class="select-button">
       <!-- Display the filename if a file has been selected. -->
+      <label>
       <span v-if="value">Selected File: {{value.name}}</span>
       <span v-else>Select File</span>
+      </label>
     </div>
     <!-- Now, the file input that we hide. -->
     <input type="file" @change="handleFileChange"/>
   </label>
+  <div class="file has-name">
+  <label class="file-label">
+    <input class="file-input" type="file" name="resume">
+    <span class="file-cta">
+      <span class="file-icon">
+        <i class="fas fa-upload"></i>
+      </span>
+      <span class="file-label">
+        Choose a file…
+      </span>
+    </span>
+    <span class="file-name">
+      Screen Shot 2017-07-29 at 15.54.25.png
+    </span>
+  </label>
+  </div>
+  </div>
 </template>
 <script>
 export default {
@@ -29,7 +48,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .file-select > .select-button {
   padding: 1rem;
 
