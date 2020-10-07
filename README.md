@@ -1,5 +1,5 @@
 # prototype-test
- On construction!
+:construction: On construction! :construction:
 
  
 ## Project setup
@@ -24,9 +24,12 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-Thanks to:
-https://gitlab.com/fourzerofour/pdf-parser-nodejs
-https://www.digitalocean.com/community/tutorials/vuejs-file-select-component
-https://developer.mozilla.org/pt-BR/docs/Web/API/File/Using_files_from_web_applications
-https://gitlab.com/autokent/pdf-parse
-https://github.com/mozilla/pdf.js#online-demo
+
+:package: Thanks to:
+* [PDF-Parser](https://gitlab.com/fourzerofour/pdf-parser-nodejs)
+* [Select Files](https://www.digitalocean.com/community/tutorials/vuejs-file-select-component).
+* [Official Documentation](https://developer.mozilla.org/pt-BR/docs/Web/API/File/Using_files_from_web_applications)
+* [Auto-kent](https://gitlab.com/autokent/pdf-parse)
+* [PdfJS](https://github.com/mozilla/pdf.js#online-demo)
+* [Cute emojis!](https://gitmoji.carloscuesta.me/)
+
