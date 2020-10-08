@@ -1,6 +1,19 @@
 # prototype-test
 :construction: On construction! :construction:
 
+## Flow
+- [x] Start the prototype :tada:
+- [x] Add the upload logic
+- [ ] Upload a file into the server
+- [ ] Read the PDF files into the server
+- [ ] Transform into text
+- [ ] Use Regular Expression to catch the right information in the text
+- [ ] Insert into DB( I'll use SqlLite)
+- [ ] Erase the files of the server to not occupy much space
+- [ ] Return the Excel report of those PDF files freshly uploaded
+- [ ] Use a Search box to download previous Excel reports according to the date.
+- [ ] :rocket:
+
  
 ## Project setup
 ```
@@ -32,4 +45,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * [Auto-kent](https://gitlab.com/autokent/pdf-parse)
 * [PdfJS](https://github.com/mozilla/pdf.js#online-demo)
 * [Cute emojis!](https://gitmoji.carloscuesta.me/)
+* [Some Tutos](https://www.digitalocean.com/community/tutorials/how-to-handle-file-uploads-in-vue-2)
+* [Another one](https://scotch.io/tutorials/express-file-uploads-with-multer)
+* [Another one...](https://www.webdevdrops.com/upload-arquivos-node-js-multer/)
+
+:sparkles: Thanks for your patient! :sparkles:
 
