@@ -14,10 +14,12 @@
     </div>
 
     <label class="btn btn-default">
-      <input type="file" ref="file" @change="selectFile" />
+      <!--<input type="file" ref="file" @change="selectFile" />
+      -->
+      <input id="my-input" type="file" onChange="handleFileChange">
     </label>
 
-    <button class="btn btn-success" :disabled="!selectedFiles" @click="upload">
+    <button class="btn btn-success" :disabled="!handleFileChange" @click="upload">
       Upload
     </button>
 
@@ -40,6 +42,7 @@
 
 <script>
 import UploadService from "../services/UploadFilesService";
+import UploadFilesService from '../services/UploadFilesService';
 
 export default {
   name: "upload-files",
@@ -60,8 +63,7 @@ export default {
 
     upload() {
       this.progress = 0;
-
-      this.currentFile = this.selectedFiles.item(0);
+        this.currentFile = this.selectedFiles.item(0);
       UploadService.upload(this.currentFile, event => {
         this.progress = Math.round((100 * event.loaded) / event.total);
       })
