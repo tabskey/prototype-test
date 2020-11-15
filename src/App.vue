@@ -70,6 +70,7 @@ export default {
             console.log(event.target.result)
             var base64File = event.target.result;
             var urlBase64 = base64File.replace(/^data:.+;base64,/, "");
+            console.log(urlBase64)
           }
           fileReader.readAsDataURL(file);
         }
