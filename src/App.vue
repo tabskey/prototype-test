@@ -2,20 +2,22 @@
   <div class="demo">
     <div class="header">HUAWEI</div>
     <div class="main">
-<div class="file is-boxed">
-  <label class="file-label">
-    <input class="file-input" id="file_id" type="file" name="resume" multiple @change="selectFiles">
-    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-upload"></i>
-      </span>
-      <span class="file-label">
-        Choose a file…
-      </span>
-    </span>
-  </label> <span><input class="button" type="submit" value="Submit input" @click="getFiles"></span>
-</div>
-<div class="card">
+      <form action="#" method="post" enctype="multipart/form-data" @submit.prevent="getFiles">
+        <div class="file is-boxed">
+          <label class="file-label">
+            <input class="file-input" id="file_id" type="file" name="resume" multiple accept="application/pdf">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose a file…
+              </span>
+            </span>
+          </label> <span><input class="button" type="submit" value="Submit input"></span>
+        </div>
+      </form>
+      <div class="card">
       <div class="card-header">List of Files</div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"
@@ -54,53 +56,64 @@ export default {
     };
   },
   methods: {
-    selectFiles(){
-       this.progressInfos = [];
-      this.selectedFiles = event.target.files;
-    },
-     getFiles() {
-       
-       var files = document.getElementById("file_id").files;
-    if (files.length > 0) {
+     getFiles() { 
+      var files = document.getElementById("file_id").files;
+      console.log('files', files)
+      const size = files.length
+      if (size > 0) {
 
-        var fileToLoad = files[0];
-        var fileReader = new FileReader();
-        var base64File;
-        // Reading file content when it's loaded
-        fileReader.onload = function(event) {
-            base64File = event.target.result;
-            // base64File console
-            console.log(base64File);
+        for (var i = 0; i < size; i++) {
+          var file = files[i];
+          var fileReader = new FileReader();
+          fileReader.onload = function(event) {
+            // mágica 
+            console.log(event.target.result)
+            var base64File = event.target.result;
             var urlBase64 = base64File.replace(/^data:.+;base64,/, "");
+          }
+          fileReader.readAsDataURL(file);
+        }
+
+
+
+        // var fileToLoad = files[0];
+        // var fileReader = new FileReader();
+        // var base64File;
+        // // Reading file content when it's loaded
+        // fileReader.onload = function(event) {
+        //     base64File = event.target.result;
+        //     // base64File console
+        //     console.log(base64File);
+        //     var urlBase64 = base64File.replace(/^data:.+;base64,/, "");
         
 
-        // Convert data to base64
-        var teste = fileReader.readAsDataURL(fileToLoad);
-         var pdfData = atob(urlBase64);
-        var pdfjsLib = window["pdfjs-dist/build/pdf"];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-        var loadingTask = pdfjsLib.getDocument({ data: pdfData });
+        // // Convert data to base64
+        // var teste = fileReader.readAsDataURL(fileToLoad);
+        //  var pdfData = atob(urlBase64);
+        // var pdfjsLib = window["pdfjs-dist/build/pdf"];
+        // pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+        // var loadingTask = pdfjsLib.getDocument({ data: pdfData });
       
-        // this.accessPDF();
-        console.log(loadingTask);
-        this.loadingTask.promise.then(function(pdf) {
-          var pdfDocument = pdf;
-          var pagesPromises = [];
+        // // this.accessPDF();
+        // console.log(loadingTask);
+        // this.loadingTask.promise.then(function(pdf) {
+        //   var pdfDocument = pdf;
+        //   var pagesPromises = [];
 
-          for (var i = 0; i < pdf.numPages; i++) {
-            // Required to prevent that i is always the total of pages
-            (function(pageNumber) {
-              pagesPromises.push(this.getPageText(pageNumber, pdfDocument));
-            })(i + 1);
-          }
+        //   for (var i = 0; i < pdf.numPages; i++) {
+        //     // Required to prevent that i is always the total of pages
+        //     (function(pageNumber) {
+        //       pagesPromises.push(this.getPageText(pageNumber, pdfDocument));
+        //     })(i + 1);
+        //   }
 
-          Promise.all(pagesPromises).then(function(pagesText) {
-            // Display text of all the pages in the console
-            console.log(pagesText);
-          });
-        });
-          };
-    }
+        //   Promise.all(pagesPromises).then(function(pagesText) {
+        //     // Display text of all the pages in the console
+        //     console.log(pagesText);
+        //   });
+        // });
+        //   };
+        }
      },
     // convertToURL() {
     //   const objFile = this.$refs["file_id"];
