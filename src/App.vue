@@ -34,13 +34,12 @@
     </div>
   </div>
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.487/pdf.min.js"></script>
-
 <script>
-import pdfjsLib from "pdfjs-dist/build/pdf";
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker";
+//import PDFJS from "pdfjs-dist";
+import * as pdfjsLib from "pdfjs-dist";
+//import pdfjsWorker from "pdfjs-dist/build/pdf.worker";
 //"pdfjs-dist";
-//import pdf from "pdf-extraction";
+
 
 //import PdfjsWorker from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js";
 export default {
@@ -56,7 +55,7 @@ export default {
     };
   },
   methods: {
-     getFiles() { 
+     async getFiles() { 
       var files = document.getElementById("file_id").files;
       console.log('files', files)
       const size = files.length
@@ -65,14 +64,46 @@ export default {
         for (var i = 0; i < size; i++) {
           var file = files[i];
           var fileReader = new FileReader();
-          fileReader.onload = function(event) {
+          console.log(file); 
+           var p = new Promise((resolve) =>{ // resolve,reject
+             console.log("teste");
+             fileReader.onload = function(event) {
             // mágica 
+            console.log("promise")
             console.log(event.target.result)
             var base64File = event.target.result;
             var urlBase64 = base64File.replace(/^data:.+;base64,/, "");
-            console.log(urlBase64)
+            console.log(urlBase64);
+            resolve(urlBase64);
+          };
+           })
+           fileReader.readAsDataURL(file);
+          var result = await p;         
+           
+          var pdfData = atob(result);
+          console.log(pdfData);
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;        //  pdfjsLib.disableWorker = false;
+
+        var loadingTask = pdfjsLib.getDocument({ data: pdfData });
+        // this.accessPDF();
+        console.log(loadingTask);
+        loadingTask.promise.then(function(pdf) {
+          var pdfDocument = pdf;
+          var pagesPromises = [];
+
+          for (var i = 0; i < pdf.numPages; i++) {
+            // Required to prevent that i is always the total of pages
+            (function(pageNumber) {
+              pagesPromises.push(this.getPageText(pageNumber, pdfDocument));
+            })(i + 1);
           }
-          fileReader.readAsDataURL(file);
+
+          Promise.all(pagesPromises).then(function(pagesText) {
+            // Display text of all the pages in the console
+            console.log(pagesText);
+          });
+        });
+
         }
 
 
@@ -201,14 +232,6 @@ export default {
         });
       });
 
-      // console.log(dat);
-      // fileReader.readAsDataURL(data);
-      //How to remove files
-      // handleRemove(file,fileList){
-      //     this.fileTemp = null
-      // },
-      // },
-      // gettext(data) {
     },
     getPageText(pageNum, PDFDocumentInstance) {
       // Return a Promise that is solved once the text of the page is retrieven
