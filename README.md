@@ -4,8 +4,8 @@
 ## Flow
 - [x] Start the prototype :tada:
 - [x] Add the upload logic
-- [ ] Upload a file into the server
-- [ ] Read the PDF files into the server
+- [x] Upload a file into the server
+- [x] Read the PDF files into the server
 - [ ] Transform into text
 - [ ] Use Regular Expression to catch the right information in the text
 - [ ] Insert into DB( I'll use SqlLite)
