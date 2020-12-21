@@ -6,8 +6,8 @@
 - [x] Add the upload logic
 - [x] Upload a file into the server
 - [x] Read the PDF files into the server
-- [ ] Transform into text
-- [ ] Use Regular Expression to catch the right information in the text
+- [x] Transform into text
+- [x] Use Regular Expression to catch the right information in the text
 - [ ] Insert into DB( I'll use SqlLite)
 - [ ] Erase the files of the server to not occupy much space
 - [ ] Return the Excel report of those PDF files freshly uploaded
